@@ -1,0 +1,25 @@
+# Tax-Advantaged Retirement Accounts: Traditional vs. Roth
+
+Tax-advantaged retirement accounts provide legal incentives to encourage individuals to save for retirement by reducing tax liabilities either today or in the future.
+
+## 1. Traditional Accounts (401k, 403b, Traditional IRA)
+- Tax Timing: Pre-tax contributions today, taxed on withdrawal in retirement.
+- Contribution Deduction: Contributions reduce your current year adjusted gross income (AGI), lowering your present income tax bill.
+- Growth: Investments grow tax-deferred; no taxes are owed on annual dividends, interest, or capital gains while the funds remain inside the account.
+- Withdrawals: Distributions taken after age 59½ are treated as ordinary taxable income at whatever income tax bracket you occupy in retirement.
+- Required Minimum Distributions (RMDs): Account holders must begin withdrawing mandatory minimum amounts after reaching age 73 or 75, ensuring the government eventually collects tax revenue.
+
+## 2. Roth Accounts (Roth IRA, Roth 401k)
+- Tax Timing: After-tax contributions today, 100% tax-free growth and tax-free withdrawals in retirement.
+- Contribution Deduction: Contributions do not provide an immediate tax deduction today; you contribute dollars that have already been taxed at your current marginal rate.
+- Growth: Capital compounds completely tax-free over decades.
+- Qualified Withdrawals: All withdrawals of contributions and earnings after age 59½ (with account open for at least 5 years) are completely free from federal and state income tax.
+- RMD Exemption: Roth IRAs have no required minimum distributions during the original account holder's lifetime, allowing funds to compound indefinitely or pass to heirs tax-free.
+
+## 3. Decision Framework: Traditional vs. Roth
+The optimal choice depends on comparing your current marginal tax bracket against your expected future tax bracket in retirement:
+- Favor Traditional if: You are currently in your peak earning years in a high tax bracket and anticipate having lower taxable income during retirement.
+- Favor Roth if: You are early in your career in a relatively low tax bracket, expect your earnings and tax rates to increase over time, or desire tax diversification and flexibility in retirement.
+
+## 4. Employer 401(k) Match: Guaranteed Return
+If an employer offers a matching 401(k) contribution (e.g., matching 100% of contributions up to 5% of your salary), this represents an immediate 100% guaranteed return on investment. Contributing enough to capture the full employer match should always be prioritized before other savings vehicles.

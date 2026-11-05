@@ -1,0 +1,26 @@
+# Inflation, Purchasing Power, and Nominal vs. Real Returns
+
+Inflation is the gradual, systemic increase in prices of goods and services over time across an entire economy. As inflation rises, each unit of currency buys a smaller percentage of a good or service, eroding purchasing power.
+
+## Measuring Inflation: The Consumer Price Index (CPI)
+Economists monitor inflation predominantly through the Consumer Price Index (CPI), calculated by statistical agencies (such as the US Bureau of Labor Statistics). The CPI tracks price changes for a standardized market basket of thousands of goods and services commonly purchased by urban households, encompassing food, shelter, energy, apparel, medical care, and transportation.
+
+## The Mathematical Relationship: Nominal vs. Real Return
+When evaluating investment performance, it is vital to differentiate between nominal returns and real purchasing power returns:
+- Nominal Return: The raw percentage gain on an investment before accounting for inflation.
+- Real Return: The actual gain in purchasing power after subtracting inflation.
+
+The Fisher Equation expresses this relationship:
+(1 + r_nominal) = (1 + r_real) * (1 + i)
+A widely utilized close approximation is:
+Real Return ≈ Nominal Return - Inflation Rate
+
+Example:
+If your savings account or certificate of deposit pays 4.0% nominal interest, but the annual inflation rate is 3.5%, your real economic return is approximately only 0.5%. If taxes are owed on the nominal interest, your post-tax real return may even be negative, meaning your cash is actively losing purchasing power despite nominally growing in balance.
+
+## Assets That Historically Hedge Against Inflation
+To protect long-term wealth from inflation risk, investors hold assets whose earnings or underlying asset values tend to adjust upward alongside consumer prices:
+1. Broad Equities (Stocks): Productive businesses can raise prices on consumers to preserve profit margins, resulting in dividend growth and share price appreciation exceeding historical inflation over multi-decade horizons.
+2. Real Estate: Physical properties offer intrinsic utility; landlords can raise rental rates during inflationary cycles, and replacement construction costs rise.
+3. Treasury Inflation-Protected Securities (TIPS): Sovereign bonds whose principal value automatically adjusts upward with changes in the official Consumer Price Index.
+4. Commodities and Natural Resources: Raw materials (energy, industrial metals, agriculture) often constitute the core inputs that drive cost-push inflation.

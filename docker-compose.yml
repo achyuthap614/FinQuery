@@ -1,0 +1,39 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./documents:/app/documents
+    environment:
+      - ENVIRONMENT=production
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - DATABASE_URL=sqlite:////app/data/finquery.db
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-2.5-flash}
+      - EMBEDDING_MODEL_NAME=all-MiniLM-L6-v2
+      - VECTOR_INDEX_DIR=/app/data/vector_store
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: streamlit run frontend/app.py --server.port 8501 --server.address 0.0.0.0
+    ports:
+      - "8501:8501"
+    environment:
+      - API_BASE_URL=http://backend:8000
+    depends_on:
+      - backend
+    restart: unless-stopped

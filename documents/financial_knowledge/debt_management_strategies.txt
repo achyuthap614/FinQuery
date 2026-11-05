@@ -1,0 +1,25 @@
+# Debt Elimination Strategies: Snowball vs. Avalanche
+
+Eliminating non-mortgage consumer debt, particularly high-interest credit cards, is one of the highest guaranteed return-on-investment actions an individual can undertake. Two proven methodologies dominate personal finance: the Debt Avalanche and the Debt Snowball.
+
+## 1. The Debt Avalanche Method (Mathematically Optimal)
+In the Debt Avalanche framework, you prioritize debts strictly by interest rate (Annual Percentage Rate, APR):
+1. List all debts ordered from highest interest rate to lowest interest rate, regardless of outstanding balance.
+2. Maintain minimum required payments on every single debt to protect credit score and avoid late penalties.
+3. Funnel every surplus discretionary dollar into the debt bearing the single highest APR.
+4. Once the highest-rate debt is completely paid off, roll its entire monthly allocation into the debt with the next highest interest rate.
+
+Mathematical Benefit: The Debt Avalanche minimizes the total dollar amount paid in interest over time and clears debts in the fastest chronological duration from a pure numbers perspective.
+
+## 2. The Debt Snowball Method (Behaviorally and Psychologically Driven)
+Developed and popularized by Dave Ramsey, the Debt Snowball prioritizes emotional momentum and behavioral wins:
+1. List all debts in ascending order based solely on balance amount, from smallest balance to largest balance, ignoring interest rates.
+2. Pay minimum payments across all debts.
+3. Attack the smallest balance with maximum intensity until it reaches zero.
+4. Celebrate the milestone, then roll the minimum payment and extra cash from that cleared debt into the next smallest balance.
+
+Psychological Benefit: Knocking out entire accounts quickly produces dopamine rewards and tangible proof of progress, reducing burnout and preventing people from quitting their debt-free journey prematurely.
+
+## Good Debt vs. Bad Debt
+- Good Debt: Incurred to acquire appreciating assets or enhance long-term earning potential at low, manageable interest rates (e.g., sensible educational student loans, reasonable fixed-rate residential mortgages, business development loans).
+- Bad Debt: Incurred to purchase rapidly depreciating consumer goods or services at high interest rates (e.g., revolving credit card debt at 20%+ APR, payday loans, high-interest auto financing on luxury vehicles). Bad debt systematically erodes net worth.
