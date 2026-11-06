@@ -3,6 +3,8 @@ Streamlit Frontend Application.
 """
 import io
 import os
+import re
+from pathlib import Path
 import requests
 import pandas as pd
 import plotly.express as px
@@ -94,8 +96,184 @@ st.markdown("""
         font-weight: 600;
         display: inline-block;
     }
+
+    /* Chat Message Typography & Heading Hierarchy */
+    [data-testid="stChatMessage"] h1,
+    .stChatMessage h1 {
+        font-size: 1.25rem !important;
+        font-weight: 700 !important;
+        line-height: 1.35 !important;
+        margin-top: 0.75rem !important;
+        margin-bottom: 0.35rem !important;
+        color: inherit !important;
+    }
+    
+    [data-testid="stChatMessage"] h2,
+    .stChatMessage h2 {
+        font-size: 1.15rem !important;
+        font-weight: 600 !important;
+        line-height: 1.35 !important;
+        margin-top: 0.65rem !important;
+        margin-bottom: 0.3rem !important;
+        color: inherit !important;
+    }
+    
+    [data-testid="stChatMessage"] h3,
+    .stChatMessage h3 {
+        font-size: 1.05rem !important;
+        font-weight: 600 !important;
+        line-height: 1.35 !important;
+        margin-top: 0.55rem !important;
+        margin-bottom: 0.25rem !important;
+        color: inherit !important;
+    }
+    
+    [data-testid="stChatMessage"] h4,
+    [data-testid="stChatMessage"] h5,
+    [data-testid="stChatMessage"] h6,
+    .stChatMessage h4,
+    .stChatMessage h5,
+    .stChatMessage h6 {
+        font-size: 0.95rem !important;
+        font-weight: 600 !important;
+        line-height: 1.35 !important;
+        margin-top: 0.45rem !important;
+        margin-bottom: 0.2rem !important;
+        color: inherit !important;
+    }
+    
+    [data-testid="stChatMessage"] p,
+    .stChatMessage p {
+        font-size: 0.95rem !important;
+        line-height: 1.6 !important;
+        font-weight: 400 !important;
+        margin-top: 0 !important;
+        margin-bottom: 0.5rem !important;
+        color: inherit !important;
+    }
+    
+    [data-testid="stChatMessage"] li,
+    .stChatMessage li {
+        font-size: 0.95rem !important;
+        line-height: 1.55 !important;
+        font-weight: 400 !important;
+        margin-bottom: 0.25rem !important;
+        color: inherit !important;
+    }
+    
+    [data-testid="stChatMessage"] ul,
+    [data-testid="stChatMessage"] ol,
+    .stChatMessage ul,
+    .stChatMessage ol {
+        margin-top: 0.25rem !important;
+        margin-bottom: 0.5rem !important;
+        padding-left: 1.25rem !important;
+    }
+
+    [data-testid="stChatMessage"] strong,
+    .stChatMessage strong {
+        font-weight: 600 !important;
+    }
+
+    [data-testid="stChatMessage"] hr,
+    .stChatMessage hr {
+        margin: 0.8rem 0 !important;
+        border-color: rgba(128, 128, 128, 0.25) !important;
+    }
+
+    [data-testid="stChatMessage"] code,
+    .stChatMessage code {
+        font-size: 0.85rem !important;
+    }
 </style>
 """, unsafe_allow_html=True)
+
+
+# ==========================================
+# Markdown Formatting & Typography Helper
+# ==========================================
+def _load_known_headings():
+    headings = []
+    docs_dir = Path("documents/financial_knowledge")
+    if docs_dir.exists():
+        for f in docs_dir.glob("*.txt"):
+            try:
+                for line in f.read_text(encoding="utf-8").splitlines():
+                    if line.startswith("#"):
+                        headings.append(line.strip())
+            except Exception:
+                pass
+    headings.sort(key=len, reverse=True)
+    return headings
+
+KNOWN_HEADINGS = _load_known_headings()
+
+def format_chat_markdown(text: str) -> str:
+    """
+    Cleans and structures Markdown responses:
+    - Separates document headings from body paragraphs so an entire response is never inside an <h1> or <h2>.
+    - Formats inline subheadings, bullet points, and numbered lists.
+    - Preserves already well-formed Markdown responses (e.g. SQL tool analytics, greetings, normal paragraphs).
+    """
+    if not text:
+        return ""
+        
+    has_section_header = "### 📚 Financial Knowledge Explanation" in text or "## 📖 Financial Knowledge Concept" in text
+    
+    # 1. Format known headings with proper surrounding newlines and nested hierarchy
+    for h in KNOWN_HEADINGS:
+        pattern = re.escape(h) + r'(?:\s+|\n+|$)'
+        target_h = h
+        if has_section_header:
+            if h.startswith("## "):
+                target_h = "#### " + h[3:]
+            elif h.startswith("# "):
+                target_h = "### " + h[2:]
+        text = re.sub(pattern, f"\n\n{target_h}\n\n", text)
+        
+    # 2. Format any remaining inline headings (e.g. ' ## Some Heading ')
+    def inline_heading_repl(m):
+        h_str = m.group(1)
+        if has_section_header and h_str.startswith("## "):
+            h_str = "#### " + h_str[3:]
+        return f"\n\n{h_str}\n\n"
+    text = re.sub(r'(?<=\S)\s+(#{1,6}\s+[^\n]+)', inline_heading_repl, text)
+    
+    # 3. Format inline bullet points (e.g. ' - A = ...' or ' - 50% for Needs: ...')
+    text = re.sub(r'(?<=\S)\s+-\s+([A-Za-z0-9%\"\'\`\(\$])', r'\n- \1', text)
+    
+    # 4. Format inline numbered lists (e.g. ' 1. Item ... 2. Item ...')
+    text = re.sub(r'(?<=[.:;!?\)])\s+(\d+\.\s+[A-Za-z\"\'\`])', r'\n\1', text)
+    
+    # 5. Clean up excessive newlines
+    text = re.sub(r'\n{3,}', '\n\n', text).strip()
+    
+    # 6. Safety guard: ensure no heading line contains an entire paragraph (> 75 chars without newline)
+    lines = text.split('\n')
+    cleaned_lines = []
+    for l in lines:
+        m = re.match(r'^(#{1,6})\s+(.*)$', l)
+        if m and len(m.group(2)) > 75:
+            hashes = m.group(1)
+            content = m.group(2)
+            punct_match = re.search(r'[:.!?]\s+', content[:75])
+            if punct_match:
+                split_pt = punct_match.end()
+                cleaned_lines.append(f"{hashes} {content[:split_pt].strip()}")
+                cleaned_lines.append("")
+                cleaned_lines.append(content[split_pt:].strip())
+            else:
+                w = content.split()
+                if len(w) > 7:
+                    cleaned_lines.append(f"{hashes} {' '.join(w[:5])}")
+                    cleaned_lines.append("")
+                    cleaned_lines.append(' '.join(w[5:]))
+                else:
+                    cleaned_lines.append(l)
+        else:
+            cleaned_lines.append(l)
+            
+    return '\n'.join(cleaned_lines)
 
 
 # ==========================================
@@ -348,7 +526,7 @@ with tab_chat:
     # Display chat history
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
-            st.markdown(msg["content"])
+            st.markdown(format_chat_markdown(msg["content"]))
             if msg.get("metadata"):
                 meta = msg["metadata"]
                 # Display Route Badge
@@ -396,7 +574,8 @@ with tab_chat:
                 st.error(f"Error: {response_data['error']}")
             else:
                 answer = response_data.get("answer", "No response received.")
-                st.markdown(answer)
+                formatted_answer = format_chat_markdown(answer)
+                st.markdown(formatted_answer)
 
                 routing_info = response_data.get("routing", {})
                 route = routing_info.get("route", "direct_conversation")
@@ -425,7 +604,7 @@ with tab_chat:
                 # Save to history
                 st.session_state.messages.append({
                     "role": "assistant",
-                    "content": answer,
+                    "content": formatted_answer,
                     "metadata": {
                         "route": route,
                         "tools_called": response_data.get("tools_called"),
@@ -644,7 +823,7 @@ with tab_knowledge:
                 st.markdown(f"**Retrieved {len(results)} relevant chunks:**")
                 for r in results:
                     with st.expander(f"📄 {r['document_name']} (Chunk {r['chunk_index']} — Score: {r['similarity_score']:.2f})", expanded=True):
-                        st.write(r["content"])
+                        st.markdown(format_chat_markdown(r["content"]))
             else:
                 st.error(f"Search failed: {r_res.text}")
         except Exception as e:
