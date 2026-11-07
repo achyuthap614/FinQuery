@@ -32,6 +32,12 @@ st.markdown("""
         padding-top: 1.5rem;
         padding-bottom: 2.5rem;
     }
+
+    /* Top Navigation Tabs Container - shifted down by ~25px to clear header and prevent top clipping */
+    div[data-testid="stTabs"],
+    .stTabs {
+        margin-top: 25px;
+    }
     
     /* Metric Cards */
     .kpi-card {
